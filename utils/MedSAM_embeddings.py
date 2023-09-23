@@ -9,7 +9,7 @@ from skimage import io, transform
 import gdown
 
 MODEL_ID = "1UAmWL88roYR7wKlnApw5Bcuzf2iQgk6_"
-MedSAM_CKPT_PATH = '../work/medsam_vit_b.pth'
+MedSAM_CKPT_PATH = 'medsam_vit_b.pth'
 
 
 def download_medsam_model():
@@ -41,8 +41,7 @@ def get_medsam_embeddings(img_path):
 
     if len(img_np.shape) == 3:
         img_np = img_np.mean(axis=0)
-    assert len(img_np.shape) > 3, "Image must be 3-channel"
-
+    assert len(img_np.shape) <= 3, "Image must not contain more than 3-channel"
     img_3c = np.repeat(img_np[:, :, None], 3, axis=-1)
 
     H, W, _ = img_3c.shape
